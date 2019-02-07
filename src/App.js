@@ -113,56 +113,6 @@ class App extends React.Component {
     }
   };
 
-  getNewsResults = async e => {
-    e.preventDefault();
-    let query = e.target.search.value;
-    const api_call = await fetch(
-      `https://newsapi.org/v2/top-headlines?q=${query}&apiKey=${API_KEY}`
-    );
-    const data = await api_call.json();
-    console.log(data);
-    if (data.cod !== "404" && query && data.articles.length !== 0) {
-      this.setState({
-        article0Title: data.articles[0].title,
-        article0Content: data.articles[0].content,
-        article0Img: data.articles[0].urlToImage,
-        article1Title: data.articles[1].title,
-        article1Content: data.articles[1].content,
-        article1Img: data.articles[1].urlToImage,
-        article2Title: data.articles[2].title,
-        article2Content: data.articles[2].content,
-        article2Img: data.articles[2].urlToImage,
-        error: ""
-      });
-    } else if (query) {
-      this.setState({
-        article0Title: undefined,
-        article0Content: undefined,
-        article0Img: undefined,
-        article1Title: undefined,
-        article1Content: undefined,
-        article1Img: undefined,
-        article2Title: undefined,
-        article2Content: undefined,
-        article2Img: undefined,
-        error: "No Search Results Found"
-      });
-    } else {
-      this.setState({
-        article0Title: undefined,
-        article0Content: undefined,
-        article0Img: undefined,
-        article1Title: undefined,
-        article1Content: undefined,
-        article1Img: undefined,
-        article2Title: undefined,
-        article2Content: undefined,
-        article2Img: undefined,
-        error: "Please enter a value"
-      });
-    }
-  };
-
   render() {
     return (
       <div className="wrapper">
@@ -174,10 +124,7 @@ class App extends React.Component {
             <Form getNews={this.getNews} />
           </Grid>
           <Grid>
-            <NavBar
-              getCountry={this.getCountry}
-              getNewsResults={this.getNewsResults}
-            />
+            <NavBar getCountry={this.getCountry} />
           </Grid>
 
           <Articles
